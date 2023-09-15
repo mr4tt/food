@@ -13,8 +13,8 @@ export default function FirstScreen( props ) {
           <ImageViewer placeholderImageSource={PlaceholderImage} />
         </View>
         <View style={styles.footerContainer}>
-          <Button theme="to_picker" label="Enter meal" navigation={props.navigation}/>
-          <Button label="Look at previous meals" />
+          <Button theme="to_picker" label="Enter meal" onPress={() => {props.navigation.navigate('SecondScreen');}} />
+          <Button label="Look at previous meals" onPress={() => alert('You pressed a button.')} />
         </View>
         <StatusBar style="auto" />
       </View>

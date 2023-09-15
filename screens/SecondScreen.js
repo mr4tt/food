@@ -12,8 +12,15 @@ const data = [
   { label: 'Dinner', value: 'dinner' },
 ];
 
+function setAndSubmit(item) {
+  showSubmitButton(true);
+  return setValue(item.value);
+}
+
 const DropdownComponent = (props) => {
   const [value, setValue] = useState(null);
+  const showSubmitButton = useState(false);
+  const showAppOptions = useState(false);
 
   return (
     <View style={styles.container}>
@@ -21,20 +28,20 @@ const DropdownComponent = (props) => {
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
-        //backgroundColor={"#AE445A"}
         data={data}
         maxHeight={300}
         labelField="label"
         valueField="value"
         placeholder="Select item"
         value={value}
-        onChange={item => {
-          setValue(item.value);
-        }}
+        onChange={setAndSubmit}
       />
+      {showAppOptions ? (
         <View style={styles.footerContainer}>
-          <Button theme="to_picker" label="Enter" navigation={props.navigation}/>
+          <Button theme="submit" label="Enter" type={item} onPress={something}/>
         </View>
+      ) : (null)
+    }
     </View>
   );
 };

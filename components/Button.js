@@ -1,16 +1,15 @@
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 
-export default function Button({ label, theme, navigation }) {
+export default function Button({ label, theme, type, onPress }) {
     if (theme === "to_picker") {
       return (
         <View
         style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}
         >
           <Pressable
-            style={[styles.button, { backgroundColor: "#fff" }]} onPress={() => {
-              navigation.navigate('SecondScreen');
-          }}>
+            style={[styles.button, { backgroundColor: "#fff" }]} onPress={onPress}
+            >
             <Ionicons
               name="fast-food" //https://icons.expo.fyi/Index
               size={18}
@@ -23,9 +22,27 @@ export default function Button({ label, theme, navigation }) {
       );
     }
   
+    if (theme === "submit") {
+      return (
+      <View
+        style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}
+        >
+          <Pressable
+            style={[styles.button, { backgroundColor: "#fff" }]} onPress={onPress}>
+            <Ionicons
+              name="fast-food" //https://icons.expo.fyi/Index
+              size={18}
+              color="#25292e"
+              style={styles.buttonIcon} 
+            />
+            <Text style={[styles.buttonLabel, { color: "#AE445A" }]}>{label}</Text>
+          </Pressable>
+      </View>);
+    }
+
     return (
       <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+          <Pressable style={styles.button} onPress={onPress} >
             <Text style={styles.buttonLabel}>{label}</Text>
           </Pressable>
         </View>

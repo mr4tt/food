@@ -28,7 +28,7 @@ export default function Button({ label, theme, type, onPress }) {
         style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}
         >
           <Pressable
-            style={[styles.button, { backgroundColor: "#fff" }]} onPress={onPress}>
+            style={[styles.button, { backgroundColor: "#fff" }]} onPress={() => {alert('Saved!'); onPress;}}>
             <Ionicons
               name="fast-food" //https://icons.expo.fyi/Index
               size={18}

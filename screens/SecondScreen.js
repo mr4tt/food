@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View } from 'react-native';
 
 import Button from '../components/Button';
@@ -12,15 +12,32 @@ const data = [
   { label: 'Dinner', value: 'dinner' },
 ];
 
-function setAndSubmit(item) {
-  showSubmitButton(true);
-  return setValue(item.value);
-}
 
 const DropdownComponent = (props) => {
   const [value, setValue] = useState(null);
-  const showSubmitButton = useState(false);
-  const showAppOptions = useState(false);
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
+  const today = new Date().toLocaleDateString();
+
+  const todaysFood = async () => {
+    try {
+      const value = await AsyncStorage.getItem('my-key');
+      if (value !== null) {
+        // value previously stored
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  async function storeData (value) {
+    try {
+      console.log(value)
+      const jsonValue = JSON.stringify({});
+      await AsyncStorage.setItem(today, jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -34,14 +51,18 @@ const DropdownComponent = (props) => {
         valueField="value"
         placeholder="Select item"
         value={value}
-        onChange={setAndSubmit}
+        onChange={
+          (item) => { 
+            setShowSubmitButton(true);
+            setValue(item.value);
+          }}
       />
-      {showAppOptions ? (
+      {showSubmitButton ? (
         <View style={styles.footerContainer}>
-          <Button theme="submit" label="Enter" type={item} onPress={something}/>
+          <Button theme="submit" label="Enter" onPress={storeData(value)}/>
         </View>
       ) : (null)
-    }
+      }
     </View>
   );
 };
